@@ -102,12 +102,13 @@ function Hero() {
 
           {/* LEFT CONTENT */}
           <VStack
-            align="start"
+            align="left"
             gap={{ base: 5, md: 6 }}
             w="100%"
           >
 
             <Badge
+              my={10}
               px={4}
               py={2}
               rounded="full"

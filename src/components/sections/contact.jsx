@@ -24,10 +24,10 @@ import {
 
 // Client ki actual details yahan add karna
 const CONTACT = {
-  phone: "[PHONE NUMBER]",
-  whatsapp: "[WHATSAPP NUMBER]",
-  email: "[EMAIL ADDRESS]",
-  address: "[OFFICE ADDRESS]",
+  phone: "03130686999",
+  whatsapp: "+923130686999",
+  email: "engineeringsolutionar@gmail.com",
+  // address: "[OFFICE ADDRESS]",
 };
 
 // Formspree ID yahan paste karna

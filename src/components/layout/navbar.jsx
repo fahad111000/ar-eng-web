@@ -1,6 +1,5 @@
 
 import { useEffect, useState } from "react";
-
 import {
   Box,
   Flex,
@@ -26,7 +25,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("#top");
 
-  // Scroll shadow
+  // Scroll detection
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 20);
@@ -42,9 +41,7 @@ export default function Navbar() {
       passive: true,
     });
 
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-    };
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   // Active section detection
@@ -58,11 +55,10 @@ export default function Navbar() {
         const visible = entries
           .filter((entry) => entry.isIntersecting)
           .sort(
-            (a, b) =>
-              b.intersectionRatio - a.intersectionRatio
+            (a, b) => b.intersectionRatio - a.intersectionRatio
           );
 
-        if (visible.length > 0) {
+        if (visible.length) {
           setActive(`#${visible[0].target.id}`);
         }
       },
@@ -77,35 +73,29 @@ export default function Navbar() {
     return () => observer.disconnect();
   }, []);
 
-  const close = () => setOpen(false);
+  const closeMenu = () => setOpen(false);
 
   return (
     <Box
       as="header"
       position="fixed"
-      top={{ base: "3", md: "4" }}
+      top="0"
       left="0"
       right="0"
       zIndex="100"
-      px={{ base: "3", md: "5" }}
+      bg="white"
+      borderBottom="1px solid"
+      borderColor={scrolled ? "#E2E8E3" : "transparent"}
+      boxShadow={scrolled ? "0 4px 18px rgba(25,40,32,0.07)" : "none"}
+      transition="box-shadow 0.25s ease, border-color 0.25s ease"
     >
       <Box
-        maxW="1160px"
+        maxW="1280px"
         mx="auto"
-        px={{ base: "3", md: "6" }}
-        bg={scrolled ? "#FFFFFF" : "rgba(255,255,255,0.94)"}
-        backdropFilter="blur(12px)"
-        border="1px solid #E9ECE8"
-        borderRadius="full"
-        boxShadow={
-          scrolled
-            ? "0 6px 24px rgba(25,40,32,0.09)"
-            : "0 3px 15px rgba(25,40,32,0.04)"
-        }
-        transition="background 0.2s ease, box-shadow 0.2s ease"
+        px={{ base: "4", md: "8", lg: "12" }}
       >
         <Flex
-          minH="66px"
+          minH={{ base: "68px", md: "78px" }}
           align="center"
           justify="space-between"
         >
@@ -115,28 +105,31 @@ export default function Navbar() {
             display="flex"
             alignItems="center"
             gap="3"
-            onClick={close}
+            onClick={closeMenu}
             _hover={{ textDecoration: "none" }}
+            flexShrink="0"
           >
             <Flex
-              boxSize="40px"
+              boxSize={{ base: "39px", md: "43px" }}
               align="center"
               justify="center"
               bg="#344B3E"
               color="white"
-              borderRadius="xl"
+              borderRadius="md"
               fontWeight="800"
               fontSize="sm"
+              letterSpacing="tight"
             >
               AR
             </Flex>
 
             <Box>
               <Text
-                fontSize={{ base: "sm", sm: "md" }}
+                fontSize={{ base: "sm", md: "md" }}
                 fontWeight="700"
                 color="#26372F"
-                lineHeight="1.2"
+                lineHeight="1.3"
+                whiteSpace="nowrap"
               >
                 {NAME}
               </Text>
@@ -144,7 +137,7 @@ export default function Navbar() {
               <Text
                 display={{ base: "none", sm: "block" }}
                 fontSize="9px"
-                letterSpacing="0.15em"
+                letterSpacing="0.16em"
                 color="#929A94"
                 textTransform="uppercase"
                 mt="1"
@@ -159,7 +152,7 @@ export default function Navbar() {
             as="nav"
             display={{ base: "none", md: "flex" }}
             align="center"
-            gap="2"
+            gap={{ md: "5", lg: "8" }}
           >
             {links.map((link) => {
               const isActive = active === link.href;
@@ -168,38 +161,33 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  px="4"
-                  py="2.5"
-                  borderRadius="full"
+                  position="relative"
+                  py="3"
                   fontSize="sm"
                   fontWeight={isActive ? "700" : "500"}
-                  color={isActive ? "#344B3E" : "#778078"}
+                  color={isActive ? "#344B3E" : "#68746B"}
                   textDecoration="none"
-                  bg="transparent"
-                  transition="color 0.15s ease"
+                  transition="color 0.2s ease"
                   _hover={{
-                    textDecoration: "none",
                     color: "#344B3E",
-                    bg: "transparent",
+                    textDecoration: "none",
+                  }}
+                  _after={{
+                    content: '""',
+                    position: "absolute",
+                    bottom: "5px",
+                    left: "0",
+                    width: isActive ? "100%" : "0%",
+                    height: "2px",
+                    bg: "#B58A43",
+                    transition: "width 0.2s ease",
                   }}
                   _focusVisible={{
                     outline: "2px solid #B58A43",
-                    outlineOffset: "3px",
+                    outlineOffset: "4px",
                   }}
                 >
                   {link.label}
-
-                  {isActive && (
-                    <Box
-                      w="5px"
-                      h="5px"
-                      bg="#B58A43"
-                      borderRadius="full"
-                      display="inline-block"
-                      ml="2"
-                      verticalAlign="middle"
-                    />
-                  )}
                 </Link>
               );
             })}
@@ -212,7 +200,7 @@ export default function Navbar() {
             aria-expanded={open}
             variant="ghost"
             color="#344B3E"
-            borderRadius="full"
+            size="lg"
             onClick={() => setOpen((prev) => !prev)}
           >
             {open ? <LuX /> : <LuMenu />}
@@ -224,30 +212,35 @@ export default function Navbar() {
           <Stack
             display={{ base: "flex", md: "none" }}
             gap="1"
-            pt="2"
             pb="4"
+            pt="2"
+            borderTop="1px solid #EDF0ED"
           >
-            {links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={close}
-                px="4"
-                py="3"
-                borderRadius="lg"
-                fontSize="sm"
-                fontWeight="600"
-                color={active === link.href ? "#344B3E" : "#778078"}
-                bg={active === link.href ? "#F0F3EF" : "transparent"}
-                _hover={{
-                  textDecoration: "none",
-                  color: "#344B3E",
-                  bg: "#F0F3EF",
-                }}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {links.map((link) => {
+              const isActive = active === link.href;
+
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={closeMenu}
+                  px="4"
+                  py="3"
+                  borderRadius="md"
+                  fontSize="sm"
+                  fontWeight={isActive ? "700" : "500"}
+                  color={isActive ? "#344B3E" : "#68746B"}
+                  bg={isActive ? "#F0F3EF" : "transparent"}
+                  _hover={{
+                    color: "#344B3E",
+                    bg: "#F0F3EF",
+                    textDecoration: "none",
+                  }}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </Stack>
         )}
       </Box>

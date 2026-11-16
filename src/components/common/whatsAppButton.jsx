@@ -1,9 +1,7 @@
 import { Link, Text } from "@chakra-ui/react";
 import { FaWhatsapp } from "react-icons/fa";
 
-// Country code ke saath, bina + ya spaces ke.
-// Pakistan: 0300 1234567 -> 923001234567
-const NUMBER = "//";
+const NUMBER = "923130686999";
 const MESSAGE = "Hello, I would like to inquire about your services.";
 
 export default function WhatsAppButton() {

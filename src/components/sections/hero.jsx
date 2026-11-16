@@ -108,7 +108,7 @@ function Hero() {
           >
 
             <Badge
-              // my={10}
+              my={10}
               px={4}
               py={2}
               rounded="full"

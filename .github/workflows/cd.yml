@@ -35,7 +35,7 @@ jobs:
           printf '%s\n' "$EC2_SSH_KEY" | tr -d '\r' > ~/.ssh/github_actions_deploy
           chmod 600 ~/.ssh/github_actions_deploy
           ssh-keyscan -H "$EC2_HOST" >> ~/.ssh/known_hosts
-          ssh -vv -i ~/.ssh/github_actions_deploy -o IdentitiesOnly=yes ubuntu@"$EC2_HOST" "echo SSH_CONNECTION_SUCCESS"
+          ssh -i ~/.ssh/github_actions_deploy -o IdentitiesOnly=yes ubuntu@"$EC2_HOST" "echo SSH_CONNECTION_SUCCESS"
 
       - name: Deploy to AWS EC2
         env:
@@ -44,7 +44,8 @@ jobs:
           EC2_PATH: ${{ secrets.EC2_PATH }}
         run: |
           rsync -avz --delete \
-            -e "ssh -i ~/.ssh/deploy_key" \
+            -e "ssh -i ~/.ssh/github_actions_deploy -o IdentitiesOnly=yes" \
             dist/ \
             "$EC2_USER@$EC2_HOST:$EC2_PATH/dist/"
+
 

@@ -248,6 +248,16 @@ export default function Footer() {
           {/* Brand */}
           <Stack gap="5">
             <Flex align="center" gap="3">
+
+{/* 
+            <Flex align="center" gap="3">
+              <Image src="ar-logo.jpeg" alt="AR Engineering Solutions"
+                h={{ base: "40px", md: "56px" }}
+                w="auto"
+                objectFit="contain" ></Image>
+
+            </Flex> */}
+            
               <Flex
                 boxSize="12"
                 flexShrink="0"
@@ -402,11 +412,22 @@ export default function Footer() {
               borderColor: "#F2B632",
               transform: "translateY(-3px)",
             }}
+            mb={'40px'}
           >
             <LuArrowUp size={19} />
           </Link>
         </Flex>
+
       </Container>
+      <Box bg='grey' p={'8px 0 10px 0'}>
+
+        <Text textAlign={'center'} fontSize="xs" color="white">
+          Developed by{" "}
+          <Link href="https://github.com/fahad111000" color={'blue'} target="_blank" rel="noreferrer">
+            Dev Fahad
+          </Link>
+        </Text>
+      </Box>
     </Box>
   );
 }

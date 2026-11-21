@@ -6,7 +6,7 @@ import {
   IconButton,
   Link,
   Stack,
-  Text,
+  Image,
 } from "@chakra-ui/react";
 
 import { LuMenu, LuX } from "react-icons/lu";
@@ -109,41 +109,9 @@ export default function Navbar() {
             _hover={{ textDecoration: "none" }}
             flexShrink="0"
           >
-            <Flex
-              boxSize={{ base: "39px", md: "43px" }}
-              align="center"
-              justify="center"
-              bg="#344B3E"
-              color="white"
-              borderRadius="md"
-              fontWeight="800"
-              fontSize="sm"
-              letterSpacing="tight"
-            >
-              AR
-            </Flex>
 
             <Box>
-              <Text
-                fontSize={{ base: "sm", md: "md" }}
-                fontWeight="700"
-                color="#26372F"
-                lineHeight="1.3"
-                whiteSpace="nowrap"
-              >
-                {NAME}
-              </Text>
-
-              <Text
-                display={{ base: "none", sm: "block" }}
-                fontSize="9px"
-                letterSpacing="0.16em"
-                color="#929A94"
-                textTransform="uppercase"
-                mt="1"
-              >
-                Engineering Excellence
-              </Text>
+              <Image src="/ar-logo.jpeg" alt="AR Engineering Solutions" h="40px" />
             </Box>
           </Link>
 
@@ -244,6 +212,8 @@ export default function Navbar() {
           </Stack>
         )}
       </Box>
+      
     </Box>
+    
   );
 }

@@ -25,9 +25,9 @@ const TAGLINE =
   "Quality Engineering. Innovative Solutions. Reliable Delivery.";
 
 const CONTACT = {
-  phone: "[PHONE NUMBER]",
-  email: "[EMAIL ADDRESS]",
-  address: "[OFFICE ADDRESS]",
+  phone: "+923130686999",
+  email: "engineeringsolutionar@gmail.com",
+  address: "Peshawar, Pakistan",
 };
 
 const quickLinks = [

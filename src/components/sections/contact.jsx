@@ -24,10 +24,10 @@ import {
 
 // Client ki actual details yahan add karna
 const CONTACT = {
-  phone: "03130686999",
+  phone: "+923130686999",
   whatsapp: "+923130686999",
   email: "engineeringsolutionar@gmail.com",
-  // address: "[OFFICE ADDRESS]",
+  address: "Peshawar, Pakistan",
 };
 
 // Formspree ID yahan paste karna
